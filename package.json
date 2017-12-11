@@ -4,7 +4,8 @@
   "description": "video capture",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "polymer build ; rm -rd ./docs ; cp -rf ./build/default ./docs"
   },
   "repository": {
     "type": "git",
