@@ -142,7 +142,7 @@
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -155,7 +155,7 @@
 exports.__esModule = true;
 exports.nodes = undefined;
 
-var _domRecycler = __webpack_require__(8);
+var _domRecycler = __webpack_require__(10);
 
 var _domRecycler2 = _interopRequireDefault(_domRecycler);
 
@@ -235,6 +235,101 @@ exports['default'] = {
 
 /***/ }),
 /* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const define = component => {
+  customElements.define(component.tagName, component);
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = define;
+
+
+const merge = (origin, diff) => {
+  for (let k in diff) {
+      if (!diff[k] || isPrimitive(diff[k])) {
+          origin[k] = diff[k];
+      } else if (diff[k].constructor === Object) {
+          if (!origin[k]) {
+              origin[k] = {};
+          }
+          merge(origin[k], diff[k]);
+      } else if (diff[k].constructor === Array) {
+          if (!origin[k]) {
+              origin[k] = [];
+          }
+          merge(origin[k], diff[k]);
+      }
+  }
+};
+/* harmony export (immutable) */ __webpack_exports__["b"] = merge;
+
+
+const typeEquals = (type, target) => {
+  const clas = Object.prototype.toString.call(target).slice(8, -1);
+  return clas === type;
+};
+
+const isPrimitive = a => {
+  return typeEquals("Number", a) || typeEquals("Boolean", a) || typeEquals("String", a);
+};
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util__ = __webpack_require__(1);
+
+
+class UIComponent extends HTMLElement {
+  static get tagName() {
+    throw new Error('UIComponent is abstract class');
+    return 'ui-component';
+  }
+
+  static get observedAttributes() {
+    return [];
+  }
+
+  get initialState() {
+    return {};
+  }
+
+  beforeMount() {}
+
+  constructor() {
+    super();
+    this.state = this.initialState;
+    this.beforeMount();
+    this.attachShadow({ mode: 'open' });
+    this.oldVnode = document.createElement('div');
+    this.shadowRoot.appendChild(this.oldVnode);
+    this.update();
+  }
+
+  render() {
+    const { h } = window.asmDom;
+    return h('div', {}, 'ui-component');
+  }
+
+  update(state) {
+    Object(__WEBPACK_IMPORTED_MODULE_0__util__["b" /* merge */])(this.state, state);
+    const { patch } = window.asmDom;
+    const vnode = this.render();
+    patch(this.oldVnode, vnode);
+    this.oldVnode = vnode;
+  }
+
+  connectedCallback() {}
+  disconnectedCallback() {}
+  attributeChangedCallback(attributeName, oldValue, newValue, namespace) {}
+  adoptedCallback(oldDocument, newDocument) {}
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = UIComponent;
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 var g;
@@ -261,29 +356,34 @@ module.exports = g;
 
 
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_asm_dom__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_asm_dom__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_asm_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_asm_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_web_component__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_app_container__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_video_container__ = __webpack_require__(12);
 
 
-customElements.define('web-component', __WEBPACK_IMPORTED_MODULE_1__components_web_component__["a" /* default */]);
+
+Object(__WEBPACK_IMPORTED_MODULE_1__util__["a" /* define */])(__WEBPACK_IMPORTED_MODULE_2__components_app_container__["a" /* default */]);
+
+Object(__WEBPACK_IMPORTED_MODULE_1__util__["a" /* define */])(__WEBPACK_IMPORTED_MODULE_3__components_video_container__["a" /* default */]);
 
 __WEBPACK_IMPORTED_MODULE_0_asm_dom___default()({
   unsafePatch: true
 }).then(asmDom => {
   const { h, patch } = asmDom;
   const root = document.getElementById('root');
-  const vnode = h('web-component', {}, []);
+  const vnode = h('app-container', {}, []);
   patch(root, vnode);
 });
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -291,17 +391,17 @@ __WEBPACK_IMPORTED_MODULE_0_asm_dom___default()({
 
 exports.__esModule = true;
 
-var _h = __webpack_require__(4);
+var _h = __webpack_require__(6);
 
 var _h2 = _interopRequireDefault(_h);
 
-var _patch = __webpack_require__(5);
+var _patch = __webpack_require__(7);
 
 var _patch2 = _interopRequireDefault(_patch);
 
-var _toHTML = __webpack_require__(6);
+var _toHTML = __webpack_require__(8);
 
-var _diff = __webpack_require__(7);
+var _diff = __webpack_require__(9);
 
 var _diff2 = _interopRequireDefault(_diff);
 
@@ -338,7 +438,7 @@ exports['default'] = function (config) {
   if ((config.useWasm === true || 'WebAssembly' in window) && config.useAsmJS !== true) {
     result = new Promise(function (resolve) {
       __webpack_require__.e/* require.ensure */(0).then((function (require) {
-        resolve(__webpack_require__(10));
+        resolve(__webpack_require__(13));
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }).then(function (x) {
       return x['default'](config);
@@ -346,7 +446,7 @@ exports['default'] = function (config) {
   } else {
     result = new Promise(function (resolve) {
       __webpack_require__.e/* require.ensure */(1).then((function (require) {
-        resolve(__webpack_require__(11));
+        resolve(__webpack_require__(14));
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     });
   }
@@ -387,10 +487,10 @@ exports['default'] = function (config) {
     return x.lib;
   });
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -482,7 +582,7 @@ exports['default'] = function (a, b, c, d) {
 };
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -511,7 +611,7 @@ exports['default'] = function (oldVnode, vnode) {
 };
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -604,7 +704,7 @@ var toHTML = exports.toHTML = function toHTML(vnode) {
 };
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -642,7 +742,7 @@ exports['default'] = function (oldVnodePtr, vnodePtr, elmPtr) {
 };
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -730,107 +830,184 @@ var recycler = {
 exports['default'] = recycler;
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-class WebComponent extends HTMLElement {
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ui_component__ = __webpack_require__(2);
+
+
+class AppContainer extends __WEBPACK_IMPORTED_MODULE_0__ui_component__["a" /* default */] {
+  static get tagName() {
+    return 'app-container';
+  }
+
   constructor() {
     super();
-    this.state = {
-      urls: []
+  }
+
+  beforeMount() {
+    this._onChangeFiles = this._onChangeFiles.bind(this);
+    this._onClickExport = this._onClickExport.bind(this);
+  }
+
+  get initialState() {
+    return {
+      videoInfos: [],
+      frameInfos: []
     };
-    this.attachShadow({ mode: 'open' });
-    this.oldVnode = document.createElement('div');
-    this.shadowRoot.appendChild(this.oldVnode);
-    this.update();
   }
 
   render() {
     const { h } = window.asmDom;
-    const { urls } = this.state;
-    const videos = this.state.urls.map(url => {
-      return h('video', {
+    const { videoInfos, frameInfos } = this.state;
+    const links = frameInfos.map(info => {
+      return h('a', {
         raw: {
-          controls: true,
-          src: url
+          href: info.url,
+          download: info.name
         }
-      });
+      }, [info.name]);
     });
 
     return h('div', {}, [
       h('input', {
         raw: {
+          id: 'file-loader',
           type: 'file',
           multiple: true,
           accept: 'video/*',
-          onchange: e => {
-            const { files } = this.shadowRoot.querySelector('input');
-            const urls = [];
-            for (let i = 0; i < files.length; i++) {
-              urls.push(URL.createObjectURL(files[i]));
-            }
-            this.update({
-              urls
-            });
-          }
+          onchange: this._onChangeFiles
         }
       }),
-      h('button', {
-        raw: {
-          disabled: videos.length === 0,
-          onclick: () => {
-            const videos = this.shadowRoot.querySelectorAll('video');
-            for (let i = 0; i < videos.length; i++) {
-              const canvas = document.createElement('canvas');
-              canvas.getContext("2d").drawImage(videos[i], 0, 0, videos[i].videoWidth, videos[i].videoHeight);
-              canvas.toBlob(b => {
-                const url = URL.createObjectURL(b);
-              });
-            }
+      h('div', {}, [
+        h('p', {}, '書き出しサイズ'),
+        h('label', {}, 'width'),
+        h('input', {
+          raw: {
+            type: 'number',
+            id: 'width-input'
           }
-        },
-      }, ['書き出し']),
-      h('div', {}, videos)
+        }),
+        h('label', {}, 'height'),
+        h('input', {
+          raw: {
+            type: 'number',
+            id: 'height-input'
+          }
+        }),
+        h('button', {
+          raw: {
+            disabled: videoInfos.length === 0,
+            onclick: this._onClickExport
+          },
+        }, ['ダウンロードリンク生成']),
+      ]),
+      h('div', {}, ...links),
+      h('video-container', { infos: JSON.stringify(videoInfos) }),
     ]);
   }
 
-  update(state = {}) {
-    this.merge(this.state, state);
-    const { patch } = window.asmDom;
-    const vnode = this.render();
-    patch(this.oldVnode, vnode);
-    this.oldVnode = vnode;
-  }
-
-  merge(origin, diff) {
-    for (let k in diff) {
-        if (!diff[k] || this.isPrimitive(diff[k])) {
-            origin[k] = diff[k];
-        } else if (diff[k].constructor === Object) {
-            if (!origin[k]) {
-                origin[k] = {};
-            }
-            this.merge(origin[k], diff[k]);
-        } else if (diff[k].constructor === Array) {
-            if (!origin[k]) {
-                origin[k] = [];
-            }
-            this.merge(origin[k], diff[k]);
-        }
+  _onChangeFiles() {
+    const { files } = this.shadowRoot.querySelector('#file-loader');
+    const videoInfos = [];
+    for (let i = 0; i < files.length; i++) {
+      videoInfos.push({
+        src: URL.createObjectURL(files[i]),
+        name: files[i].name
+      });
     }
+    this.update({
+      videoInfos
+    });
   }
 
-  typeEquals(type, target) {
-    const clas = Object.prototype.toString.call(target).slice(8, -1);
-    return clas === type;
-  }
-
-  isPrimitive(a) {
-    return this.typeEquals("Number", a) || this.typeEquals("Boolean", a) || this.typeEquals("String", a);
+  _onClickExport() {
+    const vc = this.shadowRoot.querySelector('video-container');
+    const w = Number(this.shadowRoot.querySelector('#width-input').value);
+    const h = Number(this.shadowRoot.querySelector('#height-input'));
+    vc.getFrameUrls(w, h).then(frameInfos => {
+      this.update({ frameInfos });
+    });
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = WebComponent;
+/* harmony export (immutable) */ __webpack_exports__["a"] = AppContainer;
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ui_component__ = __webpack_require__(2);
+
+
+class VideoContainer extends __WEBPACK_IMPORTED_MODULE_0__ui_component__["a" /* default */] {
+  static get tagName() {
+    return 'video-container';
+  }
+
+  static get observedAttributes() {
+    return [
+      'infos'
+    ];
+  }
+
+  get initialState() {
+    return { infos: [] };
+  }
+
+  getFrameUrls(w = null, h = null) {
+    return new Promise((res, rej) => {
+      const videos = this.shadowRoot.querySelectorAll('video');
+      const l = videos.length;
+      const infos = [];
+      for (let i = 0; i < l; i++) {
+        const v = videos[i];
+        const c = document.createElement('canvas');
+        const name = this._cutExtension(v.name);
+        c.width = w ? w : v.videoWidth;
+        c.height = h ? h : v.videoHeight;
+        c.getContext("2d").drawImage(v, 0, 0, c.width, c.height);
+        c.toBlob(b => {
+          const url = URL.createObjectURL(b);
+          infos.push({ url, name });
+          if (infos.length === l) {
+            res(infos);
+          }
+        });
+      }
+    });
+  }
+
+  _cutExtension(str) {
+    const sp = str.split('.');
+    return sp[0];
+  }
+
+  render() {
+    const { h } = window.asmDom;
+    const { infos } = this.state;
+    const videos = this.state.infos.map(info => {
+      return h('video', {
+        raw: {
+          controls: true,
+          src: info.src,
+          name: info.name
+        }
+      });
+    });
+    return h('div', {}, videos);
+  }
+
+  attributeChangedCallback(attributeName, oldValue, newValue, namespace) {
+    if (attributeName === 'infos') {
+      const infos = JSON.parse(newValue);
+      this.update({infos});
+    }
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = VideoContainer;
 
 
 /***/ })
