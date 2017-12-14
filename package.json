@@ -1,11 +1,13 @@
 {
   "name": "video-capture",
   "version": "1.0.0",
-  "description": "video capture",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "polymer build ; rm -rd ./docs ; cp -rf ./build/default ./docs"
+    "start": "npm run build ; ./node_modules/.bin/webpack-dev-server --env.dev",
+    "build": "./node_modules/.bin/webpack --env.dev ; cp -f ./index.html ./dist",
+    "deploy": "./node_modules/.bin/webpack --env.prod ; cp -f ./index.html ./docs"
   },
   "repository": {
     "type": "git",
@@ -18,7 +20,11 @@
   },
   "homepage": "https://github.com/SatoshiKawabata/video-capture#readme",
   "dependencies": {
-    "@polymer/polymer": "^3.0.0-pre.1",
-    "@webcomponents/webcomponentsjs": "^1.0.20"
+    "asm-dom": "^0.4.1"
+  },
+  "devDependencies": {
+    "arraybuffer-loader": "^1.0.0",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7"
   }
 }
