@@ -12,6 +12,7 @@ export default class AppContainer extends UIComponent {
   beforeMount() {
     this._onChangeFiles = this._onChangeFiles.bind(this);
     this._onClickExport = this._onClickExport.bind(this);
+    this._onCheckAspect = this._onCheckAspect.bind(this);
   }
 
   get initialState() {
@@ -28,7 +29,8 @@ export default class AppContainer extends UIComponent {
       return h('a', {
         raw: {
           href: info.url,
-          download: info.name
+          download: info.name,
+          style: 'display: block;'
         }
       }, [info.name]);
     });
@@ -45,6 +47,18 @@ export default class AppContainer extends UIComponent {
       }),
       h('div', {}, [
         h('p', {}, '書き出しサイズ'),
+        // h('div', {}, [
+        //   h('input', {
+        //     raw: {
+        //       id: 'check-aspect',
+        //       type: 'checkbox',
+        //       onchange: this._onCheckAspect
+        //     }
+        //   }),
+        //   h('label', {
+        //     for: 'check-aspect'
+        //   }, 'アスペクト比を固定'),
+        // ]),
         h('label', {}, 'width'),
         h('input', {
           raw: {
@@ -66,7 +80,7 @@ export default class AppContainer extends UIComponent {
           },
         }, ['ダウンロードリンク生成']),
       ]),
-      h('div', {}, ...links),
+      h('div', {}, links),
       h('video-container', { infos: JSON.stringify(videoInfos) }),
     ]);
   }
@@ -88,9 +102,14 @@ export default class AppContainer extends UIComponent {
   _onClickExport() {
     const vc = this.shadowRoot.querySelector('video-container');
     const w = Number(this.shadowRoot.querySelector('#width-input').value);
-    const h = Number(this.shadowRoot.querySelector('#height-input'));
+    const h = Number(this.shadowRoot.querySelector('#height-input').value);
     vc.getFrameUrls(w, h).then(frameInfos => {
       this.update({ frameInfos });
     });
+  }
+
+  _onCheckAspect(e) {
+    if (e.target.checked) {
+    }
   }
 }

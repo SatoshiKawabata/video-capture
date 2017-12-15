@@ -849,6 +849,7 @@ class AppContainer extends __WEBPACK_IMPORTED_MODULE_0__ui_component__["a" /* de
   beforeMount() {
     this._onChangeFiles = this._onChangeFiles.bind(this);
     this._onClickExport = this._onClickExport.bind(this);
+    this._onCheckAspect = this._onCheckAspect.bind(this);
   }
 
   get initialState() {
@@ -865,7 +866,8 @@ class AppContainer extends __WEBPACK_IMPORTED_MODULE_0__ui_component__["a" /* de
       return h('a', {
         raw: {
           href: info.url,
-          download: info.name
+          download: info.name,
+          style: 'display: block;'
         }
       }, [info.name]);
     });
@@ -882,6 +884,18 @@ class AppContainer extends __WEBPACK_IMPORTED_MODULE_0__ui_component__["a" /* de
       }),
       h('div', {}, [
         h('p', {}, '書き出しサイズ'),
+        // h('div', {}, [
+        //   h('input', {
+        //     raw: {
+        //       id: 'check-aspect',
+        //       type: 'checkbox',
+        //       onchange: this._onCheckAspect
+        //     }
+        //   }),
+        //   h('label', {
+        //     for: 'check-aspect'
+        //   }, 'アスペクト比を固定'),
+        // ]),
         h('label', {}, 'width'),
         h('input', {
           raw: {
@@ -903,7 +917,7 @@ class AppContainer extends __WEBPACK_IMPORTED_MODULE_0__ui_component__["a" /* de
           },
         }, ['ダウンロードリンク生成']),
       ]),
-      h('div', {}, ...links),
+      h('div', {}, links),
       h('video-container', { infos: JSON.stringify(videoInfos) }),
     ]);
   }
@@ -925,10 +939,15 @@ class AppContainer extends __WEBPACK_IMPORTED_MODULE_0__ui_component__["a" /* de
   _onClickExport() {
     const vc = this.shadowRoot.querySelector('video-container');
     const w = Number(this.shadowRoot.querySelector('#width-input').value);
-    const h = Number(this.shadowRoot.querySelector('#height-input'));
+    const h = Number(this.shadowRoot.querySelector('#height-input').value);
     vc.getFrameUrls(w, h).then(frameInfos => {
       this.update({ frameInfos });
     });
+  }
+
+  _onCheckAspect(e) {
+    if (e.target.checked) {
+    }
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = AppContainer;
