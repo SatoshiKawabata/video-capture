@@ -1,15 +1,18 @@
-import init from 'asm-dom';
-import { define } from './util';
-import AppContainer from './components/app-container';
-define(AppContainer);
-import VideoContainer from './components/video-container';
-define(VideoContainer);
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './components/App/App';
+import registerServiceWorker from './registerServiceWorker';
+import { Provider } from 'react-redux';
+import {
+  createStore,
+} from 'redux';
+import Reduser from './app/Reduser';
+const store = createStore(Reduser);
 
-init({
-  unsafePatch: true
-}).then(asmDom => {
-  const { h, patch } = asmDom;
-  const root = document.getElementById('root');
-  const vnode = h('app-container', {}, []);
-  patch(root, vnode);
-});
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+document.getElementById('root'));
+registerServiceWorker();
