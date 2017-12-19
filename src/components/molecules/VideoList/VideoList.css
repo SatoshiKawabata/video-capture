@@ -1,0 +1,7 @@
+.VideoList {
+  display: flex;
+}
+
+.VideoList__item {
+  width: 80%;
+}
