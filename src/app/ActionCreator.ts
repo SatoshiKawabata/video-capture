@@ -1,9 +1,10 @@
+import { VideoInfo, ExportConfig } from './Models';
 export const ACTIONS = {
   FUGA: 'fuga',
   UPDATE_VIDEO_INFOS: 'add-video-infos',
   UPDATE_EXPORT_CONFIG: 'update-export-config',
-  GET_VIDEO_FRAME: 'get-video-frame',
   EXPORT: 'export',
+  EXPORT_END: 'export-end',
 };
 export default class ActionCreator {
   static fuga() {
@@ -12,14 +13,14 @@ export default class ActionCreator {
     };
   }
 
-  static updateVideoInfos(videoInfos: {}) {
+  static updateVideoInfos(videoInfos: VideoInfo[]) {
     return {
       type: ACTIONS.UPDATE_VIDEO_INFOS,
       videoInfos,
     };
   }
 
-  static updateExportConfig(exportConfig: {}) {
+  static updateExportConfig(exportConfig: ExportConfig) {
     return {
       type: ACTIONS.UPDATE_EXPORT_CONFIG,
       exportConfig,
@@ -28,13 +29,13 @@ export default class ActionCreator {
 
   static export() {
     return {
-      type: ACTIONS.UPDATE_EXPORT_CONFIG,
+      type: ACTIONS.EXPORT,
     };
   }
 
-  static getVideoFrame() {
+  static exportEnd() {
     return {
-      type: ACTIONS.GET_VIDEO_FRAME,
+      type: ACTIONS.EXPORT_END,
     };
   }
 }

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import './DrawerMenu.css';
 import ActionCreator from './../../../app/ActionCreator';
+import { Model } from './../../../app/Models';
 const {
   TemporaryDrawer,
   TemporaryDrawerHeader,
@@ -31,7 +32,7 @@ const DrawerMenu = () => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: Model) => {
   return state;
 };
 

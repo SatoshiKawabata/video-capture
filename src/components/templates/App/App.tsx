@@ -6,6 +6,7 @@ import ActionCreator from './../../../app/ActionCreator';
 import Header from '../../organisms/Header/Header';
 import Body from '../../organisms/Body/Body';
 import DrawerMenu from '../../organisms/DrawerMenu/DrawerMenu';
+import { Model } from './../../../app/Models';
 
 const App = props => {
   return (
@@ -26,7 +27,7 @@ const App = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: Model) => {
   return state;
 };
 

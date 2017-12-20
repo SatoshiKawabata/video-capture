@@ -4,17 +4,20 @@ import './Controls.css';
 import ActionCreator from './../../../app/ActionCreator';
 import FileInput from '../../atoms/FileInput/FileInput';
 import ExportForm from '../../atoms/ExportForm/ExportForm';
+import Download from '../../atoms/Download/Download';
+import { Model } from './../../../app/Models';
 
 const Controls = () => {
   return (
     <div className="Controls">
       <FileInput />
       <ExportForm />
+      <Download />
     </div>
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: Model) => {
   return state;
 };
 

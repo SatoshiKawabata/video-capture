@@ -4,6 +4,7 @@ import './Body.css';
 import ActionCreator from './../../../app/ActionCreator';
 import Controls from '../../molecules/Controls/Controls';
 import VideoList from '../../molecules/VideoList/VideoList';
+import { Model } from './../../../app/Models';
 
 const Body = () => {
   return (
@@ -14,7 +15,7 @@ const Body = () => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: Model) => {
   return state;
 };
 

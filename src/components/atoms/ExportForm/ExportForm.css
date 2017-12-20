@@ -2,6 +2,10 @@
   display: block;
 }
 
+.ExportForm__list {
+  padding: 0;
+}
+
 .ExportForm__list > li {
   margin-right: 16px;
   list-style-type: none;

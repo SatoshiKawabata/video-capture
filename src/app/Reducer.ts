@@ -1,19 +1,21 @@
+import { Model } from './Models';
 import { ACTIONS } from './ActionCreator';
 
-const initialState = {
+const initialState: Model = {
   fuga: 1,
-  videoInfos: [], // { src, name }
+  videoInfos: [],
   exportConfig: {
     width: 0,
     height: 0,
-    name: null,
+    name: '',
   },
+  isExporting:  false,
 };
 
 const Reducer = (state = initialState, action) => {
   /* tslint:disable:no-console */
   console.log('reduce', action, state);
-  const newState = JSON.parse(JSON.stringify(state));
+  const newState: Model = JSON.parse(JSON.stringify(state));
 
   switch (action.type) {
     case ACTIONS.FUGA:
@@ -27,6 +29,11 @@ const Reducer = (state = initialState, action) => {
       break;
     case ACTIONS.EXPORT:
     // image from video
+    newState.isExporting = true;
+      break;
+    case ACTIONS.EXPORT_END:
+    // image from video
+    newState.isExporting = false;
       break;
     default:
       break;

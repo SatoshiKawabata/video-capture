@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import './Template.css';
 import ActionCreator from './../../../app/ActionCreator';
+import { Model } from './../../../app/Models';
 
 const Template = props => {
   console.log(props);
@@ -12,7 +13,7 @@ const Template = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: Model) => {
   return state;
 };
 

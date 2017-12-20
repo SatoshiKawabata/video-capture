@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import './Header.css';
 import ActionCreator from './../../../app/ActionCreator';
+import { Model } from './../../../app/Models';
 const {
   Toolbar,
   ToolbarRow,
@@ -23,7 +24,7 @@ const Header = () => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: Model) => {
   return state;
 };
 
