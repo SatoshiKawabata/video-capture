@@ -1,27 +1,26 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import './VideoList.css';
 import ActionCreator from './../../../app/ActionCreator';
-import {
+const {
   GridList,
   GridTile,
   GridTilePrimary,
   GridTilePrimaryContent,
-} from 'rmwc';
+} = require('rmwc');
 
 const VideoList = props => {
-  console.log(props);
   return (
     <GridList>
       {props.videoInfos.map(videoInfo => {
-        const { name, src } = videoInfo;
-        return <GridTile key={src} className='VideoList__item'>
+        const { src } = videoInfo;
+        return <GridTile key={src} className="VideoList__item">
           <GridTilePrimary>
             <GridTilePrimaryContent>
               <video
                 src={src}
-                name={name}
-                controls />
+                controls={true}
+              />
             </GridTilePrimaryContent>
           </GridTilePrimary>
         </GridTile>;

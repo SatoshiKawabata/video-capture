@@ -12,14 +12,14 @@ export default class ActionCreator {
     };
   }
 
-  static updateVideoInfos(videoInfos) {
+  static updateVideoInfos(videoInfos: {}) {
     return {
       type: ACTIONS.UPDATE_VIDEO_INFOS,
       videoInfos,
     };
   }
 
-  static updateExportConfig(exportConfig) {
+  static updateExportConfig(exportConfig: {}) {
     return {
       type: ACTIONS.UPDATE_EXPORT_CONFIG,
       exportConfig,

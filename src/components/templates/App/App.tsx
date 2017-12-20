@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import ActionCreator from './../../../app/ActionCreator';
 import Header from '../../organisms/Header/Header';
@@ -24,10 +24,9 @@ const App = props => {
       <button onClick={props.handleClick}>button</button>*/}
     </div>
   );
-}
+};
 
 const mapStateToProps = state => {
-  console.log(state);
   return state;
 };
 

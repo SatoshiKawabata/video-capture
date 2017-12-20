@@ -1,27 +1,27 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import './Header.css';
 import ActionCreator from './../../../app/ActionCreator';
-import {
+const {
   Toolbar,
   ToolbarRow,
   ToolbarTitle,
   ToolbarSection,
   ToolbarMenuIcon,
-} from 'rmwc';
+} = require('rmwc');
 
 const Header = () => {
   return (
     <Toolbar>
       <ToolbarRow>
-        <ToolbarSection alignStart>
-          <ToolbarMenuIcon use='menu'/>
+        <ToolbarSection alignStart={true}>
+          <ToolbarMenuIcon use="menu"/>
           <ToolbarTitle>Video Capture</ToolbarTitle>
         </ToolbarSection>
       </ToolbarRow>
     </Toolbar>
   );
-}
+};
 
 const mapStateToProps = state => {
   return state;

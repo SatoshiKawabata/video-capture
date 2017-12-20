@@ -1,6 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import 'normalize.css/normalize.css';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import './index.css';
 import 'material-components-web/dist/material-components-web.css';
 import App from './components/templates/App/App';
@@ -9,9 +8,9 @@ import { Provider } from 'react-redux';
 import {
   createStore,
 } from 'redux';
-import Reduser from './app/Reduser';
-import WebFont from 'webfontloader'
-const store = createStore(Reduser);
+import * as WebFont from 'webfontloader';
+import Reducer from './app/Reducer';
+const store = createStore(Reducer);
 
 WebFont.load({
   google: {
@@ -23,5 +22,5 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-document.getElementById('root'));
+  document.getElementById('root'));
 registerServiceWorker();

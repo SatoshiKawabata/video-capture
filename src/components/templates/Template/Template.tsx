@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import './Template.css';
 import ActionCreator from './../../../app/ActionCreator';
@@ -10,7 +10,7 @@ const Template = props => {
       This is Template.
     </div>
   );
-}
+};
 
 const mapStateToProps = state => {
   return state;

@@ -1,19 +1,18 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import './DrawerMenu.css';
 import ActionCreator from './../../../app/ActionCreator';
-import {
+const {
   TemporaryDrawer,
   TemporaryDrawerHeader,
   TemporaryDrawerContent,
   ListItem,
   ListItemText,
-} from 'rmwc';
+} = require('rmwc');
 
 const DrawerMenu = () => {
   return (
-    <TemporaryDrawer
-      open={false}>
+    <TemporaryDrawer open={false}>
       <TemporaryDrawerHeader style={{ backgroundColor: '#f6f6f6' }}>
         TemporaryDrawerHeader
       </TemporaryDrawerHeader>
@@ -30,7 +29,7 @@ const DrawerMenu = () => {
       </TemporaryDrawerContent>
     </TemporaryDrawer>
   );
-}
+};
 
 const mapStateToProps = state => {
   return state;

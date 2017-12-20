@@ -11,6 +11,7 @@ const initialState = {
 };
 
 const Reducer = (state = initialState, action) => {
+  /* tslint:disable:no-console */
   console.log('reduce', action, state);
   const newState = JSON.parse(JSON.stringify(state));
 
@@ -27,8 +28,10 @@ const Reducer = (state = initialState, action) => {
     case ACTIONS.EXPORT:
     // image from video
       break;
+    default:
+      break;
   }
   return newState;
-}
+};
 
 export default Reducer;

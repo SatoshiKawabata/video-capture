@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import './Controls.css';
 import ActionCreator from './../../../app/ActionCreator';
@@ -12,7 +12,7 @@ const Controls = () => {
       <ExportForm />
     </div>
   );
-}
+};
 
 const mapStateToProps = state => {
   return state;
