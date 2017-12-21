@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import './VideoList.css';
 import ActionCreator from './../../../app/ActionCreator';
-import { Model, VideoInfo } from './../../../app/Models';
+import { Model, VideoInfo, ExportConfig } from './../../../app/Models';
 import { lifecycle } from 'recompose';
 const {
   GridList,
@@ -15,15 +15,21 @@ let VideoList = props => {
   const { videoInfos } = props;
   return (
     <GridList id="video-list">
-      {videoInfos.map(videoInfo => {
+      {videoInfos.map((videoInfo, i) => {
         const { src } = videoInfo;
-        return <GridTile key={src} className="VideoList__item">
-          <GridTilePrimary>
-            <GridTilePrimaryContent>
+        const video = i === 0 ? (
               <video
                 src={src}
                 controls={true}
-              />
+                onLoad={onLoadVideo}
+              />) : (<video
+                src={src}
+                controls={true}
+              />);
+        return <GridTile key={src} className="VideoList__item">
+          <GridTilePrimary>
+            <GridTilePrimaryContent>
+              {video}
             </GridTilePrimaryContent>
           </GridTilePrimary>
         </GridTile>;
@@ -47,6 +53,10 @@ VideoList = lifecycle({
     });
   }
 })(VideoList);
+
+const onLoadVideo = (e: {}) => {
+  console.log(e);
+};
 
 const getVideoFrames = (
   videoInfos: VideoInfo[] ,
@@ -97,6 +107,9 @@ const mapDispatchToProps = dispatch => {
   return {
     updateVideoInfos: (infos: VideoInfo[]) => {
       dispatch(ActionCreator.updateVideoInfos(infos));
+    },
+    updateExportConfig: (config: ExportConfig) => {
+      dispatch(ActionCreator.updateExportConfig(config));
     },
   };
 };

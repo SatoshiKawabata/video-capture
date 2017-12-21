@@ -9,7 +9,6 @@ export interface Model {
 export interface ExportConfig {
   width: number;
   height: number;
-  name: string;
 }
 
 export interface VideoInfo {

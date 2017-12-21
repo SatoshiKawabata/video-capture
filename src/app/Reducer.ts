@@ -2,13 +2,17 @@ import { EventEmitter } from 'events';
 import { Model } from './Models';
 import { ACTIONS } from './ActionCreator';
 
+let exportConfigCache = (() => {
+  const c = window.localStorage.getItem('exportConfig') as string;
+  return JSON.parse(c);
+})();
+
 const initialState: Model = {
   fuga: 1,
   videoInfos: [],
-  exportConfig: {
+  exportConfig: exportConfigCache ? exportConfigCache : {
     width: 0,
     height: 0,
-    name: '',
   },
   eventEmitter: new EventEmitter(),
 };
@@ -27,6 +31,7 @@ const Reducer = (state = initialState, action) => {
       break;
     case ACTIONS.UPDATE_EXPORT_CONFIG:
       newState.exportConfig = Object.assign({}, newState.exportConfig, action.exportConfig);
+      window.localStorage.setItem('exportConfig', JSON.stringify(newState.exportConfig));
       break;
     default:
       break;
