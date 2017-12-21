@@ -17,7 +17,12 @@ const ExportForm = props => {
       <ul className="ExportForm__list">
         <li>
           <label htmlFor="export-width">width: </label>
-          <input type="number" value={width} id="export-width" onChange={onChangeWidth.bind(null, props.updateExportConfig)}/>
+          <input
+            type="number"
+            value={width}
+            id="export-width"
+            onChange={onChangeWidth.bind(null, props.updateExportConfig)}
+          />
         </li>
         <li>
           <label htmlFor="export-height">height: </label>
@@ -29,15 +34,21 @@ const ExportForm = props => {
           />
         </li>
         <li>
-          <Button raised={true} onClick={onClickExport.bind(null, props)} disabled={props.videoInfos.length < 1 || isExporting}>Export</Button>
+          <Button
+            raised={true}
+            onClick={onClickExport.bind(null, props)}
+            disabled={props.videoInfos.length < 1 || isExporting}
+          >
+            Export
+          </Button>
         </li>
       </ul>
     </FormField>
   );
 };
 
-const onClickExport = props => {
-  props.export();
+const onClickExport = (props: Model) => {
+  props.eventEmitter.emit('on-export');
 };
 
 const onChangeWidth = (updateExportConfig, e) => {
@@ -57,9 +68,6 @@ const mapDispatchToProps = dispatch => {
     updateExportConfig: (exportConfig: ExportConfig) => {
       dispatch(ActionCreator.updateExportConfig(exportConfig));
     },
-    export: () => {
-      dispatch(ActionCreator.export());
-    }
   };
 };
 

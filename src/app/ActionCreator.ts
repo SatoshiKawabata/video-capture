@@ -3,8 +3,6 @@ export const ACTIONS = {
   FUGA: 'fuga',
   UPDATE_VIDEO_INFOS: 'add-video-infos',
   UPDATE_EXPORT_CONFIG: 'update-export-config',
-  EXPORT: 'export',
-  EXPORT_END: 'export-end',
 };
 export default class ActionCreator {
   static fuga() {
@@ -24,18 +22,6 @@ export default class ActionCreator {
     return {
       type: ACTIONS.UPDATE_EXPORT_CONFIG,
       exportConfig,
-    };
-  }
-
-  static export() {
-    return {
-      type: ACTIONS.EXPORT,
-    };
-  }
-
-  static exportEnd() {
-    return {
-      type: ACTIONS.EXPORT_END,
     };
   }
 }

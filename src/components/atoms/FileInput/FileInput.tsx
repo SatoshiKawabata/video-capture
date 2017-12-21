@@ -8,7 +8,13 @@ const FileInput = props => {
   return (
     <div className="FileInput">
       <h3>Import</h3>
-      <input type="file" multiple={true} onChange={onChange.bind(null, props)} accept="video/*" disabled={props.isExporting} />
+      <input
+        type="file"
+        multiple={true}
+        onChange={onChange.bind(null, props)}
+        accept="video/*"
+        disabled={props.isExporting}
+      />
     </div>
   );
 };
@@ -19,10 +25,16 @@ const onChange = (props, e) => {
   for (let i = 0; i < files.length; i++) {
     videoInfos.push({
       src: URL.createObjectURL(files[i]),
-      name: files[i].name,
+      name: cutExtension(files[i].name),
+      frameSrc: '',
     });
   }
   props.updateVideoInfos(videoInfos);
+};
+
+const cutExtension = (str: string): string => {
+  const sp = str.split('.');
+  return sp[0];
 };
 
 const mapStateToProps = (state: Model) => {

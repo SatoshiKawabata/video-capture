@@ -1,3 +1,4 @@
+import { EventEmitter } from 'events';
 import { Model } from './Models';
 import { ACTIONS } from './ActionCreator';
 
@@ -9,13 +10,13 @@ const initialState: Model = {
     height: 0,
     name: '',
   },
-  isExporting:  false,
+  eventEmitter: new EventEmitter(),
 };
 
 const Reducer = (state = initialState, action) => {
   /* tslint:disable:no-console */
   console.log('reduce', action, state);
-  const newState: Model = JSON.parse(JSON.stringify(state));
+  const newState: Model = Object.assign({}, state);
 
   switch (action.type) {
     case ACTIONS.FUGA:
@@ -26,14 +27,6 @@ const Reducer = (state = initialState, action) => {
       break;
     case ACTIONS.UPDATE_EXPORT_CONFIG:
       newState.exportConfig = Object.assign({}, newState.exportConfig, action.exportConfig);
-      break;
-    case ACTIONS.EXPORT:
-    // image from video
-    newState.isExporting = true;
-      break;
-    case ACTIONS.EXPORT_END:
-    // image from video
-    newState.isExporting = false;
       break;
     default:
       break;

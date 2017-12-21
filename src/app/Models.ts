@@ -1,8 +1,9 @@
+import { EventEmitter } from 'events';
 export interface Model {
   fuga: number;
   videoInfos: VideoInfo[];
   exportConfig: ExportConfig;
-  isExporting: boolean;
+  eventEmitter: EventEmitter;
 }
 
 export interface ExportConfig {
@@ -14,5 +15,5 @@ export interface ExportConfig {
 export interface VideoInfo {
   name: string;
   src: string;
-  frameSrc?: string;
+  frameSrc: string;
 }
