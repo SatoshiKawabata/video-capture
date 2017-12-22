@@ -75,8 +75,8 @@ const getVideoFrames = (
 const getVideoFrame = (info: VideoInfo, v: HTMLVideoElement, w: number, h: number): Promise<VideoInfo> => {
   return new Promise(res => {
     const c = document.createElement('canvas');
-    c.width = w ? w : v.videoWidth;
-    c.height = h ? h : v.videoHeight;
+    c.width = w > 0 ? w : v.videoWidth;
+    c.height = h > 0 ? h : v.videoHeight;
     const ctx = c.getContext('2d');
     if (ctx) {
       ctx.drawImage(v, 0, 0, c.width, c.height);
